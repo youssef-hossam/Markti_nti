@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:marketi_nti/on_boarding.dart';
-
+import 'package:marketi_nti/on_boarding/on_boarding.dart';
+import 'package:marketi_nti/auth/sign_in_view.dart';
 class MarktiNtiApp extends StatelessWidget {
   const MarktiNtiApp({super.key});
 
@@ -15,7 +15,10 @@ class MarktiNtiApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: '/onboarding',
         routes: {
-          '/onboarding': (context) => const OnBoarding(),
+
+
+          '/signIn': (context) =>  SignInView(),
+          '/onboarding': (context) => OnBoarding(),
           //  '/second':(context) => SecondPage(),
         },
       ),

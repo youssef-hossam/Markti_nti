@@ -27,7 +27,7 @@ class OnBoarding extends StatelessWidget {
           ),
         ],
         onDone: () {
-          Navigator.pushReplacementNamed(context, '/');
+          Navigator.pushReplacementNamed(context, '/signIn');
         },
         showSkipButton: true,
         skip: const Text('Skip'),
