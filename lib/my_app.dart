@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi_nti/core/dark_theme.dart' as DarkTheme;
+import 'package:marketi_nti/home/home_view.dart';
+import 'package:marketi_nti/navigation/bottom_navigation_bar.dart';
 import 'package:marketi_nti/on_boarding/on_boarding.dart';
 import 'package:marketi_nti/auth/sign_in_view.dart';
+
 class MarktiNtiApp extends StatelessWidget {
   const MarktiNtiApp({super.key});
 
@@ -12,13 +16,19 @@ class MarktiNtiApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
+        darkTheme: DarkTheme.darkThemeData(),
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.white,
+          ),
+        ),
         debugShowCheckedModeBanner: false,
         initialRoute: '/onboarding',
         routes: {
-
-
-          '/signIn': (context) =>  SignInView(),
+          '/signIn': (context) => SignInView(),
           '/onboarding': (context) => OnBoarding(),
+          'homeView': (context) => HomeView(),
+          '/BottomNavBar': (context) => BottomNavBar(),
           //  '/second':(context) => SecondPage(),
         },
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi_nti/core/app_colors.dart';
 
 Widget SkipButton() {
   return Container(
@@ -14,7 +15,7 @@ Widget SkipButton() {
         'Skip',
         style: TextStyle(
           fontSize: 16.sp,
-          color: Color(0xFF3F80FF),
+          color: AppColors.lightBlue100,
           fontWeight: FontWeight.w900,
         ),
       ),

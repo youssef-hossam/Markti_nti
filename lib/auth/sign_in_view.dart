@@ -2,8 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi_nti/auth/sign_up_view.dart';
+import 'package:marketi_nti/auth/widgets/custom_button.dart';
 import 'package:marketi_nti/auth/widgets/custom_text_form_field.dart';
 import 'package:marketi_nti/auth/widgets/skip_button.dart';
+import 'package:marketi_nti/core/app_colors.dart';
 
 class SignInView extends StatefulWidget {
   late TextEditingController emailController;
@@ -70,7 +73,7 @@ class _SignInViewState extends State<SignInView> {
                     children: [
                       CustomTextFormField(
                         iconPath: 'assets/images/icons/email_Icon.png',
-                        labelText: 'Username or Email',
+                        hintText: 'Username or Email',
                       ),
 
                       SizedBox(
@@ -79,7 +82,7 @@ class _SignInViewState extends State<SignInView> {
 
                       CustomTextFormField(
                         iconPath: 'assets/images/icons/pass_icon.png',
-                        labelText: 'Password',
+                        hintText: 'Password',
                       ),
 
                       Row(
@@ -119,7 +122,7 @@ class _SignInViewState extends State<SignInView> {
                           Text(
                             'Forgot Password?',
                             style: TextStyle(
-                              color: const Color(0xFF3F80FF),
+                              color: AppColors.lightBlue100,
                               fontSize: 12,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
@@ -134,24 +137,9 @@ class _SignInViewState extends State<SignInView> {
                 SizedBox(
                   height: 10.h,
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 44.h,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(14.r),
-                    border: Border.all(color: Colors.blue, width: 2.w),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                  ),
+                CustomButton(
+                  ontap: () {},
+                  text: "Sign In",
                 ),
                 SizedBox(
                   height: 12.h,
@@ -187,11 +175,18 @@ class _SignInViewState extends State<SignInView> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignUpView(),
+                          ),
+                        );
+                      },
                       child: Text(
                         'Sign Up',
                         style: TextStyle(
-                          color: const Color(0xFF3F80FF),
+                          color: AppColors.lightBlue100,
                           fontSize: 12.sp,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
