@@ -1,7 +1,12 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketi_nti/core/app_colors.dart';
+import 'package:marketi_nti/home/models/product_model.dart';
+import 'package:marketi_nti/home/widgets/product_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -10,7 +15,6 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       appBar: AppBar(
         leadingWidth: 200,
         leading: Row(
@@ -53,47 +57,98 @@ class HomeView extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(14),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'What are you looking for ? ',
-                hintStyle: TextStyle(
-                  fontSize: 18.sp,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400,
-                ),
-                prefixIcon: Image.asset(
-                  'assets/images/icons/Search_Icons_UIA.png',
-                  width: 24.w,
-                  height: 24.h,
-                ),
 
-                suffix: Container(
-                  width: 30.w,
-                  height: 30.h,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.darkBlue100.withAlpha(10), width: 2),
-                    borderRadius: BorderRadius.circular(6.r),
+      // body: Column(
+      //   children: [
+      //     Padding(
+      //       padding: const EdgeInsets.all(14),
+      //       child: TextField(
+      //         decoration: InputDecoration(
+      //           hintText: 'What are you looking for ? ',
+      //           hintStyle: TextStyle(
+      //             fontSize: 18.sp,
+      //             color: Colors.grey,
+      //             fontWeight: FontWeight.w400,
+      //           ),
+      //           prefixIcon: Image.asset(
+      //             'assets/images/icons/Search_Icons_UIA.png',
+      //             width: 24.w,
+      //             height: 24.h,
+      //           ),
+
+      //           suffix: Container(
+      //             width: 30.w,
+      //             height: 30.h,
+      //             decoration: BoxDecoration(
+      //               border: Border.all(color: AppColors.darkBlue100.withAlpha(10), width: 2),
+      //               borderRadius: BorderRadius.circular(6.r),
+      //             ),
+      //             child: Image.asset(
+      //               'assets/images/icons/Filter_Icon.png',
+      //               width: 10.w,
+      //               height: 10.h,
+      //             ),
+      //           ),
+      //           border: OutlineInputBorder(
+      //             borderRadius: BorderRadius.circular(14.r),
+      //             borderSide: BorderSide(color: AppColors.lightBlue100, width: 2),
+      //           ),
+      //           contentPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+      //         ),
+      //       ),
+      //     ),
+
+      //     // get all products
+      //   ],
+      // ),
+      body: FutureBuilder(
+        future: getAllProducts(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Center(child: CircularProgressIndicator());
+
+            case ConnectionState.done:
+              if (snapshot.hasData) {
+                final data = snapshot.data as Map<String, dynamic>;
+
+                return GridView.builder(
+                  itemCount: data['products'].length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 0.8,
+                    crossAxisCount: 2,
                   ),
-                  child: Image.asset(
-                    'assets/images/icons/Filter_Icon.png',
-                    width: 10.w,
-                    height: 10.h,
+
+                  itemBuilder: (context, index) => Column(
+                    children: [
+                      // ProductCard(: data, index: index),
+                      ProductCard(
+                        index: index,
+                        productModel: ProductModel.fromJson(data['products'][index]),
+                      ),
+                    ],
                   ),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14.r),
-                  borderSide: BorderSide(color: AppColors.lightBlue100, width: 2),
-                ),
-                contentPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-              ),
-            ),
-          ),
-        ],
+                );
+              }
+
+            case ConnectionState.none:
+              return Center(child: Text('No connection'));
+
+            case ConnectionState.active:
+              return Center(child: Text('Active connection'));
+          }
+
+          return Container();
+        },
       ),
     );
+
+    // get all products function
+  }
+
+  getAllProducts() async {
+    final dio = Dio();
+    Response response = await dio.get('https://dummyjson.com/products');
+    return response.data;
   }
 }
