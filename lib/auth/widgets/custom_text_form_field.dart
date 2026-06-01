@@ -7,13 +7,16 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final bool isPassword;
   final String hintText;
-  const CustomTextFormField({
+
+String? Function(String?)? validator;
+   CustomTextFormField({
     super.key,
     required this.iconPath,
     this.labelText,
     this.controller,
     this.isPassword = false,
     required this.hintText,
+      this.validator,
   });
 
   @override
@@ -42,6 +45,9 @@ class CustomTextFormField extends StatelessWidget {
           //       )
           //     : Container(),
           TextFormField(
+            controller: controller,
+            obscureText: isPassword,
+            validator: validator,
             decoration: InputDecoration(
               prefixIcon: Image.asset(
                 iconPath,

@@ -4,7 +4,7 @@ class ProductModel {
   String? description;
   String? category;
   String? price;
-  double? discountPercentage;
+  num? discountPercentage;
   double? rating;
   int? stock;
   List<String>? tags;
@@ -53,7 +53,7 @@ class ProductModel {
     description = json['description'];
     category = json['category'];
     price = json['price'].toString();
-    discountPercentage = json['discountPercentage'];
+    discountPercentage = json['discountPercentage'] ;
     rating = json['rating'];
     stock = json['stock'];
     tags = json['tags'].cast<String>();

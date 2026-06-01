@@ -17,24 +17,29 @@ class ProductCard extends StatelessWidget {
       shape: BeveledRectangleBorder(
         borderRadius: BorderRadius.circular(14.r),
       ),
-      child: Expanded(
-        child: Column(
-          children: [
-            Image.network(
-              productModel.thumbnail!,
+      child: Column(
+        children: [
+          Image.network(
+            productModel.thumbnail!,
+          ),
+          Text(
+            productModel.title!,
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+              overflow: TextOverflow.ellipsis,
             ),
-            Text(
-              productModel.title!,
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            Text(productModel.price == null ? '' : productModel.price.toString()),
-          ],
-        ),
+          ),
+          Text(productModel.price == null ? '' : productModel.price.toString()),
+        ],
       ),
     );
   }
 }
+
+
+
+//  api methods
+//
+/// get all products
+/// //  

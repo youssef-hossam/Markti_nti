@@ -27,7 +27,7 @@ class MarktiNtiApp extends StatelessWidget {
         routes: {
           '/signIn': (context) => SignInView(),
           '/onboarding': (context) => OnBoarding(),
-          'homeView': (context) => HomeView(),
+          '/homeView': (context) => HomeView(),
           '/BottomNavBar': (context) => BottomNavBar(),
           //  '/second':(context) => SecondPage(),
         },
