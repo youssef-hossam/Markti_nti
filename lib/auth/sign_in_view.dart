@@ -2,18 +2,22 @@
 
 import 'dart:developer';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi_nti/auth/models/error_model.dart';
 import 'package:marketi_nti/auth/sign_up_view.dart';
 import 'package:marketi_nti/auth/widgets/custom_button.dart';
 import 'package:marketi_nti/auth/widgets/custom_text_form_field.dart';
 import 'package:marketi_nti/auth/widgets/skip_button.dart';
 import 'package:marketi_nti/core/app_colors.dart';
+import 'package:marketi_nti/core/networking/api_consumer.dart';
 
 class SignInView extends StatefulWidget {
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  ApiConsumer apiConsumer = ApiConsumer();
   bool value = false;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -174,14 +178,19 @@ class _SignInViewState extends State<SignInView> {
                     height: 10.h,
                   ),
                   CustomButton(
-                    ontap: () {
-                      print(widget.emailController.text);
-                      print(widget.passwordController.text);
+                    ontap: () async {
                       // validate  of the format email and password length
                       if (widget.formKey.currentState!.validate()) {
                         // post request that send email and password  to login with this credantials and get the access token and refresh token and save them in shared preferences
-                        login();
-                        // if request is successful (status code 200) navigate to home view
+
+                        widget.apiConsumer.post(
+                          context: context,
+                          url: 'https://accessories-eshop.runasp.net/api/auth/login',
+                          data: {
+                            "email": widget.emailController.text.toString(),
+                            "password": widget.passwordController.text.toString(),
+                          },
+                        );
                       }
                     },
                     text: "Sign In",
@@ -250,31 +259,7 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
-  login() async {
-    try {
-      Response response = await Dio().post(
-        'https://accessories-eshop.runasp.net/api/auth/login',
-        data: {
-          "email": widget.emailController.text.toString(),
-          "password": widget.passwordController.text.toString(),
-        },
-      );
-    } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionTimeout ||
-          e.type == DioExceptionType.receiveTimeout ||
-          e.type == DioExceptionType.sendTimeout) {
-        log('Connection timed out. Please try again later.');
-        // TODO
-      } else if (e.type == DioExceptionType.badResponse) {
-        log('Received invalid status code: ${e.response?.statusCode}');
-
-        // TODO
-      } else {
-        log('An unexpected error occurred: ${e.message}');
-        // TODO
-      }
-    }
-  }
+  login() async {}
 
   //     log(response.data['accessToken']);
   //     log(response.statusCode.toString());

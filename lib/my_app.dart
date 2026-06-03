@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketi_nti/core/dark_theme.dart' as DarkTheme;
+import 'package:marketi_nti/home/cubit/products_cubit.dart';
 import 'package:marketi_nti/home/home_view.dart';
 import 'package:marketi_nti/navigation/bottom_navigation_bar.dart';
 import 'package:marketi_nti/on_boarding/on_boarding.dart';
@@ -23,11 +25,14 @@ class MarktiNtiApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: '/onboarding',
+        initialRoute: '/homeView',
         routes: {
           '/signIn': (context) => SignInView(),
           '/onboarding': (context) => OnBoarding(),
-          '/homeView': (context) => HomeView(),
+          '/homeView': (context) => BlocProvider(
+            create: (context) => ProductsCubit (),
+            child: HomeView(),
+          ),
           '/BottomNavBar': (context) => BottomNavBar(),
           //  '/second':(context) => SecondPage(),
         },

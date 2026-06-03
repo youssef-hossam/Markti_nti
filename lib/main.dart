@@ -1,58 +1,27 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:marketi_nti/home/cubit/products_cubit.dart';
 import 'package:marketi_nti/my_app.dart';
 
 void main() async {
+  // ProductsCubit productsCubit = ProductsCubit();
+  // await productsCubit.getAllProducts();
   runApp(MarktiNtiApp());
-
-  ErrorModel errorModel = ErrorModel.fromJson(json);
-  log(errorModel.statusCode.toString());
-  log(errorModel.message.toString());
-  log(errorModel.errors.toString());
 }
 
-Map<String, dynamic> json = {
-  "statusCode": 400,
-  "message": "One or more errors occurred!",
-  "errors": {
-    "password": [
-      "Password must be at least 8 characters.",
-      "Password must contain at least one uppercase letter.",
-      "Password must contain at least one digit.",
-      "Password must contain at least one special character.",
-    ],
-  },
-};
-
-class ErrorModel {
-  int? statusCode;
-  String? message;
-  List<String> errors;
-
-  ErrorModel({
-    this.statusCode,
-    this.message,
-    required this.errors,
-  });
-
-  factory ErrorModel.fromJson(Map<String, dynamic> json) {
-    List<String> errorsList = [];
-    if (json['errors'] != null) {
-      json['errors'].forEach((key, value) {
-        for (var error in value) {
-          errorsList.add('$key : $error');
-        }
-      });
-    }
-
-    return ErrorModel(
-      errors: errorsList,
-      message: json['message'],
-      statusCode: json['statusCode'],
-    );
-  }
-}
+// Map<String, dynamic> json = {
+//   "statusCode": 400,
+//   "message": "One or more errors occurred!",
+//   "errors": {
+//     "password": [
+//       "Password must be at least 8 characters.",
+//       "Password must contain at least one uppercase letter.",
+//       "Password must contain at least one digit.",
+//       "Password must contain at least one special character.",
+//     ],
+//   },
+// };
 
 // getAllProducts() async {
 //   //https://dummyjson.com/products
