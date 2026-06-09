@@ -8,23 +8,21 @@ import 'package:marketi_nti/core/networking/handle_error.dart';
 class ApiConsumer {
   Dio dio = Dio();
 
-  Future<void> post({
-    Map<String, dynamic>? queryParameters,
-    required BuildContext context,
+  ApiConsumer() {
+    // dio.options.baseUrl = 'https://accessories-eshop.runasp.net/api';
+  }
 
+  Future<void> post({
+    // Map<String, dynamic>? queryParameters,
     required String url,
 
     required Map<String, dynamic> data,
   }) async {
-    try {
-      await dio.post(
-        url,
-        data: data,
-        queryParameters: queryParameters,
-      );
-    } on DioException catch (e) {
-      handleError(e, context);
-    }
+    await dio.post(
+      url,
+      data: data,
+      // queryParameters: queryParameters,
+    );
   }
 
   Future<Response> get(

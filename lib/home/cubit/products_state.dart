@@ -1,18 +1,21 @@
 part of 'products_cubit.dart';
 
 @immutable
-abstract class ProductsState {}
+sealed class ProductsState {}
 
 final class ProductsInitial extends ProductsState {}
 
 final class ProductsLoading extends ProductsState {}
 
-final class ProductSucess extends ProductsState {
+final class ProductsSucess extends ProductsState {
   final List<ProductModel> products;
-  ProductSucess(this.products);
+
+  ProductsSucess({required this.products});
 }
 
-class ProductsFailure extends ProductsState {
-final String errorMessage;
-ProductsFailure(this.errorMessage);
+
+final class ProductsFailure extends ProductsState {
+  final String errorMessage; 
+
+  ProductsFailure({required this.errorMessage});
 }

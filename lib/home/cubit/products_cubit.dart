@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:marketi_nti/home/models/product_model.dart';
@@ -10,21 +8,19 @@ part 'products_state.dart';
 class ProductsCubit extends Cubit<ProductsState> {
   ProductsCubit() : super(ProductsInitial());
 
+  Dio dio = Dio();
   Future<void> getAllProducts() async {
     emit(ProductsLoading());
     try {
-      final dio = Dio();
       Response response = await dio.get('https://dummyjson.com/products');
-      Map<String, dynamic> productsData = response.data as Map<String, dynamic>;
-      // log(productsData['products'].toString());
-      List<ProductModel> products = productsData['products']
+      var data = response.data;
+      List<ProductModel> products = data["products"]
           .map<ProductModel>((product) => ProductModel.fromJson(product))
           .toList();
 
-      // log(products.toString());
-      emit(ProductSucess(products));
-    } on Exception catch (e) {
-      emit(ProductsFailure(e.toString()));
+      emit(ProductsSucess(products: products));
+    } on DioException catch (e) {
+      emit(ProductsFailure(errorMessage: e.message ?? 'An error occurred'));
     }
   }
 }

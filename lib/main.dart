@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:marketi_nti/auth/sign_in_cubit/sign_in_cubit.dart';
+import 'package:marketi_nti/core/networking/api_consumer.dart';
 import 'package:marketi_nti/home/cubit/products_cubit.dart';
 import 'package:marketi_nti/my_app.dart';
 
@@ -8,6 +10,9 @@ void main() async {
   // ProductsCubit productsCubit = ProductsCubit();
   // await productsCubit.getAllProducts();
   runApp(MarktiNtiApp());
+
+
+  // SignInCubit  signInCubit = SignInCubit(   apiConsumer: ApiConsumer());
 }
 
 // Map<String, dynamic> json = {
