@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:marketi_nti/auth/models/error_model.dart';
 import 'package:marketi_nti/auth/widgets/pop_up_dialog.dart';
 
-void handleError(
+String handleError(
   DioException e,
 ) {
   if (e.type case DioExceptionType.badResponse) {
@@ -15,51 +15,52 @@ void handleError(
         ErrorModel errorModel = ErrorModel.fromJson(e.response!.data);
         String errorMessage = '';
         errorModel.errors.forEach((error) => errorMessage += '$error\n');
-
-        break;
+        return errorMessage;
 
       case 401:
         ErrorModel errorModel = ErrorModel.fromJson(e.response!.data);
         String errorMessage = '';
         errorModel.errors.forEach((error) => errorMessage += '$error\n');
 
-        break;
-
+        return errorMessage;
       case 403:
         ErrorModel errorModel = ErrorModel.fromJson(e.response!.data);
         String errorMessage = '';
         errorModel.errors.forEach((error) => errorMessage += '$error\n');
 
-        break;
-
+        return errorMessage;
       case 404:
         ErrorModel errorModel = ErrorModel.fromJson(e.response!.data);
         String errorMessage = '';
         errorModel.errors.forEach((error) => errorMessage += '$error\n');
 
-        break;
-
+        return errorMessage;
       case 422:
         ErrorModel errorModel = ErrorModel.fromJson(e.response!.data);
         String errorMessage = '';
         errorModel.errors.forEach((error) => errorMessage += '$error\n');
 
-        break;
-
+        return errorMessage;
       case 500:
         log('Internal Server Error');
-        break;
+
+        return 'Internal Server Error';
+
       //
     }
   } else if (e.type case DioExceptionType.connectionTimeout) {
-    log('Connection timed out. Please try again later.');
+    return 'Connection timed out. Please try again later.';
   } else if (e.type case DioExceptionType.receiveTimeout) {
-    log('Connection timed out. Please try again later.');
+    return 'Connection timed out. Please try again later.';
   } else if (e.type case DioExceptionType.sendTimeout) {
-    log('Connection timed out. Please try again later.');
+    return 'Connection timed out. Please try again later.';
   } else if (e.type case DioExceptionType.unknown) {
-    log('An unexpected error occurred: ${e.message}');
+    return 'An unexpected error occurred. Please try again later.';
   } else if (e.type case DioExceptionType.cancel) {
-    log('Request was cancelled: ${e.message}');
-  } else {}
+    return 'Request was cancelled. Please try again later.';
+  } else {
+    return 'An unexpected error occurred. Please try again later.';
+  }
+
+  return 'An unexpected error occurred. Please try again later.';
 }

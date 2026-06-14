@@ -5,11 +5,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:marketi_nti/core/networking/handle_error.dart';
 
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
 class ApiConsumer {
   Dio dio = Dio();
 
   ApiConsumer() {
-    // dio.options.baseUrl = 'https://accessories-eshop.runasp.net/api';
+    dio.options.baseUrl = 'https://accessories-eshop.runasp.net/api/';
+    dio.interceptors.add(PrettyDioLogger());
   }
 
   Future<void> post({

@@ -196,18 +196,39 @@ class _SignInViewState extends State<SignInView> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    CustomButton(
-                      ontap: () async {
-                        // validate  of the format email and password length
-                        if (widget.formKey.currentState!.validate()) {
-                          // post request that send email and password  to login with this credantials and get the access token and refresh token and save them in shared preferences
-                          context.read<SignInCubit>().signIn(
-                            email: widget.emailController.text.trim(),
-                            password: widget.passwordController.text.trim(),
-                          );
-                        }
+                    BlocBuilder<SignInCubit, SignInState>(
+                      builder: (context, state) {
+                        return CustomButton(
+                          ontap: () async {
+                            // validate  of the format email and password length
+                            if (widget.formKey.currentState!.validate()) {
+                              // post request that send email and password  to login with this credantials and get the access token and refresh token and save them in shared preferences
+                              context.read<SignInCubit>().signIn(
+                                email: widget.emailController.text.trim(),
+                                password: widget.passwordController.text.trim(),
+                              );
+                            }
+                          },
+                          text: "Sign In",
+                          child: state is SignInLoading
+                              ? SizedBox(
+                                  width: 24.w,
+                                  height: 24.h,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 2.w,
+                                  ),
+                                )
+                              : Text(
+                                  "Sign In",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                        );
                       },
-                      text: "Sign In",
                     ),
                     SizedBox(
                       height: 12.h,
@@ -244,11 +265,9 @@ class _SignInViewState extends State<SignInView> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pushNamed(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => SignUpView(),
-                              ),
+                              SignUpView.routeName,
                             );
                           },
                           child: Text(

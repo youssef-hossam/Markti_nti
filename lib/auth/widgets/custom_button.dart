@@ -6,12 +6,14 @@ import 'package:marketi_nti/auth/sign_in_cubit/sign_in_cubit.dart';
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback ontap;
+  final Widget child ;
 
   const CustomButton({
     super.key,
 
     required this.ontap,
     required this.text,
+    required this.child,
   });
 
   @override
@@ -26,21 +28,8 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(14.r),
           border: Border.all(color: Colors.blue, width: 2.w),
         ),
-        child: BlocBuilder<SignInCubit, SignInState>(
-          builder: (context, state) {
-            return Center(
-              child: state is SignInLoading
-                  ? CircularProgressIndicator()
-                  : Text(
-                      text,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-            );
-          },
+        child: Center(
+          child: child 
         ),
       ),
     );
