@@ -40,11 +40,11 @@ class MarktiNtiApp extends StatelessWidget {
             child: SignUpView(),
           ),
           '/onboarding': (context) => OnBoarding(),
-          '/homeView': (context) => BlocProvider(
+          '/homeView': (context) => HomeView(),
+          '/BottomNavBar': (context) => BlocProvider(
             create: (context) => ProductsCubit()..getAllProducts(),
-            child: HomeView(),
+            child: BottomNavBar(),
           ),
-          '/BottomNavBar': (context) => BottomNavBar(),
           //  '/second':(context) => SecondPage(),
         },
       ),

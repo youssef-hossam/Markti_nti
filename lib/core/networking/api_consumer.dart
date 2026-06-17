@@ -12,32 +12,37 @@ class ApiConsumer {
 
   ApiConsumer() {
     dio.options.baseUrl = 'https://accessories-eshop.runasp.net/api/';
-    dio.interceptors.add(PrettyDioLogger());
+    dio.interceptors.add(
+      PrettyDioLogger(),
+    );
   }
 
-  Future<void> post({
+  Future<Response> post({
     // Map<String, dynamic>? queryParameters,
     required String url,
 
     required Map<String, dynamic> data,
   }) async {
-    await dio.post(
+    Response response = await dio.post(
       url,
       data: data,
       // queryParameters: queryParameters,
     );
+    return response;
   }
 
-  Future<Response> get(
-    Map<String, dynamic>? queryParameters, {
+  Future<Response> get({
     required String url,
 
-    required Map<String, dynamic> data,
+    required String token,
   }) async {
     Response response = await dio.get(
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
       url,
-      data: data,
-      queryParameters: queryParameters,
     );
 
     return response;

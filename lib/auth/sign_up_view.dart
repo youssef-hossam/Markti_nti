@@ -74,7 +74,7 @@ class _SignUpViewState extends State<SignUpView> {
             title: 'Success',
             desc: 'Registration successful! Please log in.',
           ).show().then((value) {
-            Navigator.pushNamed(context, '/homeView');
+            Navigator.pushNamed(context, '/BottomNavBar');
           });
         }
       },

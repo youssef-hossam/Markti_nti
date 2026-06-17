@@ -50,7 +50,7 @@ class _SignInViewState extends State<SignInView> {
     return BlocListener<SignInCubit, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccess) {
-          Navigator.pushNamed(context, '/homeView');
+          Navigator.pushNamed(context, '/BottomNavBar');
         } else if (state is SignInFailure) {
           AwesomeDialog(
             context: context,
