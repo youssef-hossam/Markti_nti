@@ -8,6 +8,7 @@ import 'package:marketi_nti/core/dark_theme.dart' as DarkTheme;
 import 'package:marketi_nti/core/networking/api_consumer.dart';
 import 'package:marketi_nti/home/cubit/products_cubit.dart';
 import 'package:marketi_nti/home/home_view.dart';
+import 'package:marketi_nti/locator.dart';
 import 'package:marketi_nti/navigation/bottom_navigation_bar.dart';
 import 'package:marketi_nti/on_boarding/on_boarding.dart';
 import 'package:marketi_nti/auth/sign_in_view.dart';
@@ -32,11 +33,11 @@ class MarktiNtiApp extends StatelessWidget {
         initialRoute: '/signIn',
         routes: {
           '/signIn': (context) => BlocProvider(
-            create: (context) => SignInCubit(apiConsumer: ApiConsumer()),
+            create: (context) => SignInCubit(apiConsumer: getIt<ApiConsumer>()),
             child: SignInView(),
           ),
           SignUpView.routeName: (context) => BlocProvider(
-            create: (context) => SignUpCubit(apiConsume: ApiConsumer()),
+            create: (context) => SignUpCubit(apiConsume: getIt<ApiConsumer>()),
             child: SignUpView(),
           ),
           '/onboarding': (context) => OnBoarding(),
